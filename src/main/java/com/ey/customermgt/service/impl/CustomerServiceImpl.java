@@ -1,6 +1,7 @@
 package com.ey.customermgt.service.impl;
 
 import com.ey.customermgt.entity.Customer;
+import com.ey.customermgt.exception.CustomerNotFoundException;
 import com.ey.customermgt.repository.CustomerRepository;
 import com.ey.customermgt.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -23,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(Long id) {
-        return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " does not exist"));
     }
 
     @Override
@@ -45,6 +46,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " does not exist"));
+        customerRepository.delete(customer);
     }
 }

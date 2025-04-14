@@ -1,7 +1,6 @@
 -- Create the schema
 CREATE SCHEMA customer_mgmt;
 
-select * from customer_mgmt.customer
 
 -- Create the Customer table within the schema
 CREATE TABLE customer_mgmt.customer (

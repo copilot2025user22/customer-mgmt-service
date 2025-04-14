@@ -1,5 +1,7 @@
 package com.ey.customermgt.entity;
 
+
+import com.ey.customermgt.validation.ValidAge;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +38,7 @@ public class Customer {
     private String email;
 
     @Past(message = "Date of birth must be in the past")
+    @ValidAge
     private LocalDate dob;
 
     @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
